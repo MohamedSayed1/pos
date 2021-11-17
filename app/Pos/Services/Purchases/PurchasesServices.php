@@ -33,6 +33,7 @@ class PurchasesServices extends Services
             'count.*' => 'required|integer',
             'pruch_prices.*' => 'required|numeric',
             'prices.*' => 'required|numeric',
+            'paid' => 'required|numeric',
 
         ];
 

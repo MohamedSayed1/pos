@@ -9,6 +9,7 @@ use App\Pos\Model\Purchases\Purchases;
 use App\Pos\Services\Products\ProductServices;
 use App\Pos\Services\Purchases\PurchasesDetailsServices;
 use App\Pos\Services\Purchases\PurchasesServices;
+use App\Pos\Services\Suppliers\SupplierServices;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,10 @@ class PurchasesControllers extends Controller
 
     public function addView()
     {
-
-        return view('admin.purchases.add');
+        $x = new SupplierServices();
+        $suppliers = $x->Suppliers();
+        return view('admin.purchases.add')
+            ->with('suppliers',$suppliers);
     }
 
     public function addProces(Request $request)

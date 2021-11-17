@@ -72,7 +72,7 @@
 
                         <button type="button" id="addSubmit"
                                 class="btn btn-primary btn-labeled btn-labeled-left btn-sm"><b><i
-                                        class="icon-checkmark2"></i></b>حفظ
+                                    class="icon-checkmark2"></i></b>حفظ
                         </button>
                         <div id="back_button">
                             <button type="button" class="btn btn-link" data-dismiss="modal">اغلاق</button>
@@ -96,7 +96,8 @@
                     <div class="modal-body modael_here">
                         <div class="col-md-12">
                             <label><span class="text-danger">*</span>الاسم</label>
-                            <input type="text" name="name" id="name" placeholder="ادخل اسم المورد"  class="form-control" value=""
+                            <input type="text" name="name" id="name" placeholder="ادخل اسم المورد" class="form-control"
+                                   value=""
                                    required>
                             <span class="help-block">
                                 <strong class="name-error text-danger"></strong>
@@ -104,21 +105,24 @@
                         </div>
                         <div class="col-md-12">
                             <label><span class="text-danger">*</span>الهاتف</label>
-                            <input type="number" name="phone" placeholder="ادخل رقم الهاتف" id="phone" class="form-control" value="" required>
+                            <input type="number" name="phone" placeholder="ادخل رقم الهاتف" id="phone"
+                                   class="form-control" value="" required>
                             <span class="help-block">
                                 <strong class="phone-error text-danger"></strong>
                             </span>
                         </div>
                         <div class="col-md-12">
                             <label><span class="text-danger"></span>اسم الشركه</label>
-                            <input type="text" name="company" id="company" placeholder="ادخل اسم الشركه" class="form-control" value="">
+                            <input type="text" name="company" id="company" placeholder="ادخل اسم الشركه"
+                                   class="form-control" value="">
                             <span class="help-block">
                                 <strong class="company-error text-danger"></strong>
                             </span>
                         </div>
                         <div class="col-md-12">
                             <label><span class="text-danger"></span>اسم الشركه</label>
-                            <textarea class="form-control" name="address" rows="3" placeholder="ادخل العنوان"></textarea>
+                            <textarea class="form-control" name="address" rows="3"
+                                      placeholder="ادخل العنوان"></textarea>
                         </div>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                     </div>
@@ -127,7 +131,7 @@
 
                         <button type="button" id="submitAddSupplier" onclick="saveAdd()"
                                 class="btn btn-primary btn-labeled btn-labeled-left btn-sm"><b><i
-                                        class="icon-checkmark2"></i></b>حفظ
+                                    class="icon-checkmark2"></i></b>حفظ
                         </button>
                         <div id="back_button">
                             <button type="button" class="btn btn-link" data-dismiss="modal">اغلاق</button>
@@ -162,7 +166,7 @@
                         <p class="text-muted mb-3">هنا تستطيع اضافه منتج جديد</p>
 
                         <button type="button" onclick="addProd()" class="btn btn-primary legitRipple"><i
-                                    class="icon-plus-circle2 mr-2"></i>اضافه
+                                class="icon-plus-circle2 mr-2"></i>اضافه
                         </button>
                     </div>
                 </div>
@@ -174,7 +178,7 @@
                         <p class="text-muted mb-3">هنا تستطيع اضافه مورد</p>
 
                         <button type="button" onclick="addsup()" class="btn btn-primary legitRipple"><i
-                                    class="icon-plus-circle2 mr-2"></i>اضافه
+                                class="icon-plus-circle2 mr-2"></i>اضافه
                         </button>
                     </div>
                 </div>
@@ -192,9 +196,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label><span class="text-danger">*</span> المورد</label>
-                                    <select  name="name" id="name_" class="form-control"
-                                           required>
-                                        <option>dsfdsfds</option>
+                                    <select name="name" id="name_" class="form-control"
+                                            required>
+                                        @if(isset($suppliers))
+                                            @foreach($suppliers as $sup)
+                                                <option
+                                                    value="{{$sup->supplier_id}}" {{old('name') ==$sup->supplier_id ?'selected':' ' }} >{{$sup->name ." -- ". $sup->phone}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -209,7 +218,19 @@
                                            required>
                                     @if ($errors->has('data_ion'))
                                         <span class="help-block">
-                                     <strong class="data_ion-error text-danger">{{ $errors->first('data_ion') }}</strong>
+                                     <strong
+                                         class="data_ion-error text-danger">{{ $errors->first('data_ion') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-4">
+                                    <label><span class="text-danger">*</span>المدفوع</label>
+                                    <input type="number" name="paid"  step="any" class="form-control"
+                                           value="{{old('paid')}}"
+                                           required>
+                                    @if ($errors->has('paid'))
+                                        <span class="help-block">
+                                     <strong class="data_ion-error text-danger">{{ $errors->first('paid') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -240,7 +261,7 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                             <button type="submit" class="btn btn-primary btn-labeled btn-labeled-left btn-lg"><b><i
-                                            class="icon-file-plus"></i></b> حفظ
+                                        class="icon-file-plus"></i></b> حفظ
                             </button>
 
 
@@ -254,7 +275,8 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('template/back/assets/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+    <script
+        src="{{asset('template/back/assets/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
     <script src="{{asset('template/back/assets/global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
     <script src="{{asset('template/back/assets/global_assets/js/plugins/ui/prism.min.js')}}"></script>
     <script src="{{asset('template/back/assets/global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
@@ -279,8 +301,9 @@
         function addsup() {
             $('#add_suppliers').modal('show');
         }
+
         function saveAdd() {
-            var data =  $('#addsupp').serialize();
+            var data = $('#addsupp').serialize();
             $.ajax({
                 url: '{{url("/dashboard/suppliers/add")}}',
                 method: 'POST',
@@ -296,15 +319,14 @@
                             'تم الحفظ بنجاح',
                             'success'
                         );
-                        let  select = document.getElementById('name_');
+                        let select = document.getElementById('name_');
                         let opt = document.createElement('option');
                         opt.value = data.id;
                         opt.innerHTML = data.value;
                         select.appendChild(opt);
                         $('#name_').val(opt.value).trigger('change');
                         $('#add_suppliers').modal('hide');
-                    }
-                    else {
+                    } else {
                         $.each(data.data, function (key, value) {
                             $('.' + key + '-error').html(value);
                         });

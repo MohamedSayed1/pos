@@ -36,6 +36,7 @@ class PurchasesRepo
         $this->purchas->in_num         = "p-".now()->year .'-'.$this->getNumper();
         $this->purchas->supplier_name  = $data['name'];
         $this->purchas->in_data        = $data['data_ion'];
+        $this->purchas->paid        = $data['paid'];
         if($this->purchas->save())
         {
             $total=0;
