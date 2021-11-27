@@ -4,6 +4,7 @@
 namespace App\Pos\Services\Suppliers;
 
 
+use App\Pos\Repository\accounts\AccountRepo;
 use App\Pos\Repository\Suppliers\SupplierRepo;
 use App\Pos\Services;
 use Validator;
@@ -53,7 +54,18 @@ class SupplierServices extends Services
         }
 
         if($return = $this->supplierRepo->add($data))
-            return $return;
+        {
+            // add New Row to Accounts
+            $x = new AccountRepo();
+            $row =[
+                'id'=>$return[0],
+                'column'=>"supplier_id"
+            ];
+            if($x->add($row))
+                return $return;
+
+        }
+
 
 
         $this->setError(['برجاء المحاوله مره اخري ']);
